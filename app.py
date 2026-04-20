@@ -9,10 +9,10 @@ def main():
     match st.session_state['login_type']:
         case 'teacher':
             teacher_screen()
-            st.write("Welcome, Teacher!")
+            
         case 'student':
             student_screen()
-            st.write("Welcome, Student!")
+            
         case _:
             home_screen()
 
