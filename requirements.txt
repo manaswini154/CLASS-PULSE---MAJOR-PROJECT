@@ -13,3 +13,6 @@ supabase
 bcrypt
 
 streamlit
+
+librosa
+resemblyzer

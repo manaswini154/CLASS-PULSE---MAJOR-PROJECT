@@ -32,5 +32,12 @@ def check_pass(password, hash_pwd):
         hash_pwd = hash_pwd.encode()   # convert string → bytes
     return bcrypt.checkpw(password.encode(), hash_pwd)
 
+def get_all_students():
+    response = supabase.table("students").select('*').execute()
+    return response.data
 
 
+def create_student(new_name, face_emb = None, voice_emb = None):
+    data = {'name': new_name, 'face_embedding':face_emb, 'voice_embedding': voice_emb}
+    response = supabase.table('students').insert(data).execute()
+    return response.data
