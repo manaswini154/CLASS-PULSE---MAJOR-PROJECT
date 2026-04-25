@@ -30,13 +30,13 @@ def style_base_layout():
                 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
                 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
             
-                #    #MainMenu, header, footer {
-                #     visibility: hidden;
-                #     }
+                   MainMenu, header, footer {
+                    visibility: hidden;
+                    }
                 
-                #     .block-container {
-                #         padding-top: 1.5rem;
-                #     }
+                    .block-container {
+                        padding-top: 1.5rem;
+                    }
                 
                     h1{
                         font-family: 'Playfair Display', Lato, sans-serif !important;
