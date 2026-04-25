@@ -30,13 +30,13 @@ def style_base_layout():
                 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
                 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
             
-               /* #    #MainMenu, header, footer {
+                #    #MainMenu, header, footer {
                 #     visibility: hidden;
                 #     }
                 
                 #     .block-container {
                 #         padding-top: 1.5rem;
-                #     }*/
+                #     }
                 
                     h1{
                         font-family: 'Playfair Display', Lato, sans-serif !important;
@@ -63,7 +63,6 @@ def style_base_layout():
                     }
                     button[kind="primary"] { 
                         background-color: #5865f2 !important; 
-                        color: white !important; 
                         border-radius: 1.5rem !important; 
                         padding: 10px 20px !important; 
                         border: none !important; 
@@ -71,7 +70,6 @@ def style_base_layout():
                         }
                     button[kind = 'secondary']{
                         background-color: #eb459e !important;
-                        color: white !important;
                         border-radius: 1.5rem !important;
                         padding: 10px 20px !important;
                         border: none !important;
@@ -79,7 +77,6 @@ def style_base_layout():
                     }
                     button[kind = 'tertiary']{
                         background-color: black !important;
-                        color: white !important;
                         border-radius: 1.5rem !important;
                         padding: 10px 20px !important;
                         border: none !important;
@@ -87,6 +84,11 @@ def style_base_layout():
                     }
                     button:hover{
                         transform: scale(1.05) !important;
+                    }
+                    button[kind="primary"] span,
+                    button[kind="secondary"] span,
+                    button[kind="tertiary"] span {
+                        color: white !important;
                     }
                 </style>
                 """, unsafe_allow_html=True)
