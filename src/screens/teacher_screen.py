@@ -2,7 +2,7 @@ import streamlit as st
 from src.components.header import header_dashboard
 from src.ui.style_base_layout import style_background_dashboard, style_base_layout
 from src.screens.home_screen import home_screen
-from src.database.db import check_teacher_exist,create_teacher, teacher_login, get_teacher_subject
+from src.database.db import check_teacher_exist,create_teacher, teacher_login, get_teacher_subject, get_attendance_for_teacher
 from src.components.dialog_create_subject import create_subject_dialog
 from src.components.subject_card import subject_card
 from src.components.dialog_share_subject import share_subject_dialog
@@ -14,6 +14,8 @@ from datetime import datetime
 import pandas as pd
 from src.components.dialog_attendance_result import attendance_result_dialog
 from src.components.dialog_voice_attendance import voice_attendance_dialog
+from dateutil import parser
+
 
 def teacher_screen():
     style_background_dashboard()
@@ -185,6 +187,40 @@ def teacher_tab_manage_subject():
 def teacher_tab_attendance_records():
     st.header('Attendance Records')
 
+    teacher_id = st.session_state.teacher_data['teacher_id']
+    records = get_attendance_for_teacher(teacher_id) 
+    if not records:
+        st.warning("No attendance records found")
+        return
+    data = []
+    
+    for r in records:
+        subject = r.get('subjects') or {}
+        ts = r.get('timestamp')
+        data.append({
+            "ts_group": (p:=parser.parse(ts)).strftime("%Y-%m-%d %H:%M") if ts else "Unknown",
+            "Time": datetime.fromisoformat(ts).strftime("%Y-%m-%d %H:%M:%S") if ts else "N'A",
+            "Subject": subject.get('subject_name') or subject.get('name') or 'N/A',
+            "Subject Code": subject.get('subject_code', 'N/A'),
+            "is_present": bool(r.get('is_present',False))
+        })
+
+    df  = pd.DataFrame(data)
+    summary = (
+        df.groupby(['ts_group', 'Subject', 'Subject Code'])
+        .agg(Present_Count= ('is_present', 'sum'),
+             Total_Count =('is_present', 'count')).reset_index()
+    )
+    summary['Time'] = summary['ts_group']
+
+    summary['Attendance Stats'] = (
+    "✅ " + summary['Present_Count'].astype(str) + " / " +
+    summary['Total_Count'].astype(str) + " Students"
+    )
+    display_df = (summary.sort_values(by = 'ts_group', ascending = False)
+                  [['Time', 'Subject', 'Subject Code', 'Attendance Stats']]
+                  )
+    st.dataframe(display_df, hide_index=True, use_container_width = True)
 
 def register_teacher(username, name, pwd, conf_pwd):
     if not username or not name or not pwd:
