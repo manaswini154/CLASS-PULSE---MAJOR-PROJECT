@@ -13,7 +13,7 @@ def voice_attendance_dialog(selected_subject_id):
     audio_data = None
 
     audio_data = st.audio_input("Record audio for attendance", key = 'attendance_audio')
-    if st.button("Analyse audio", width= 'stretch', type = 'primary', icon=":material/mic:"):
+    if st.button("Analyse audio", width= 'stretch', type = 'primary', icon="🎙️"):
         with st.spinner("Processing audio, please wait..."):
             enrolled_res = supabase.table('subject_students').select('*, students(*)').eq('subject_id', selected_subject_id).execute()
             enrolled_students = enrolled_res.data

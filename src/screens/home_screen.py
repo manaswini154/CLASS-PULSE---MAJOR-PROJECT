@@ -1,29 +1,88 @@
 import streamlit as st
 from src.components.header import header_home
-from src.ui.style_base_layout import style_base_layout,style_background_home,style_background_dashboard
+from src.ui.style_base_layout import style_base_layout, style_background_home
+
 
 def home_screen():
-
-    
-    header_home()
     style_background_home()
-    style_base_layout() 
+    style_base_layout()
 
+    header_home()
 
-    st.write("Please select your login type to continue.")
+    # Sub-heading on dark bg — inline white colour
+    st.markdown("""
+        <p style="text-align:center;color:rgba(245,240,232,0.65);font-size:0.95rem;
+                  margin-bottom:2rem;font-family:'DM Sans',sans-serif;">
+            Select your role to continue
+        </p>
+    """, unsafe_allow_html=True)
 
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns(2, gap="large")
+
+    # ── Teacher card ──────────────────────────────────────────────
     with col1:
-        st.header("I am Teacher")
-        st.image("https://img.freepik.com/free-vector/indonesian-female-civil-servant-holding-pen-book_10045-780.jpg?semt=ais_hybrid&w=740&q=80", width= 120)
-        if st.button("Login as Teacher", type='primary', key="home_teacher_login"):
+        st.markdown("""
+            <div style="text-align:center;padding-bottom:0.75rem;">
+                <div style="width:64px;height:64px;
+                            background:linear-gradient(135deg,rgba(200,151,58,0.3) 0%,rgba(200,151,58,0.1) 100%);
+                            border:1.5px solid rgba(200,151,58,0.4);border-radius:18px;
+                            display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem;">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="4" y="8" width="24" height="16" rx="3" fill="rgba(200,151,58,0.7)"/>
+                        <rect x="7" y="11" width="10" height="1.5" rx="1" fill="white" fill-opacity="0.9"/>
+                        <rect x="7" y="14.5" width="7" height="1.5" rx="1" fill="white" fill-opacity="0.7"/>
+                        <rect x="7" y="18" width="8" height="1.5" rx="1" fill="white" fill-opacity="0.7"/>
+                        <circle cx="23" cy="15" r="3" fill="white" fill-opacity="0.9"/>
+                        <path d="M19 22c0-2.2 1.79-4 4-4s4 1.8 4 4H19z" fill="white" fill-opacity="0.9"/>
+                    </svg>
+                </div>
+                <div style="font-family:'DM Serif Display',Georgia,serif;font-size:1.35rem;
+                            color:#f5f0e8;font-weight:400;margin-bottom:0.3rem;">
+                    I am a Teacher
+                </div>
+                <div style="font-size:0.82rem;color:rgba(245,240,232,0.55);
+                            font-family:'DM Sans',sans-serif;margin-bottom:1rem;">
+                    Manage subjects &amp; attendance
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
+        if st.button("Continue as Teacher", type="primary", key="home_teacher_login",
+                     use_container_width=True):
             st.session_state['login_type'] = 'teacher'
             st.rerun()
+
+    # ── Student card ──────────────────────────────────────────────
     with col2:
-        st.header("I am Student")
-        st.image("data:image/jpeg;base64,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",width= 120)
-        if st.button("Login as Student", type='primary', key="home_student_login"):
+        st.markdown("""
+            <div style="text-align:center;padding-bottom:0.75rem;">
+                <div style="width:64px;height:64px;
+                            background:linear-gradient(135deg,rgba(107,158,140,0.3) 0%,rgba(168,213,194,0.1) 100%);
+                            border:1.5px solid rgba(107,158,140,0.4);border-radius:18px;
+                            display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem;">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="12" r="5" fill="rgba(107,158,140,0.8)"/>
+                        <path d="M8 26c0-4.42 3.58-8 8-8s8 3.58 8 8H8z" fill="rgba(168,213,194,0.7)"/>
+                        <path d="M4 16l12-6 12 6-12 4L4 16z" fill="white" fill-opacity="0.9"/>
+                    </svg>
+                </div>
+                <div style="font-family:'DM Serif Display',Georgia,serif;font-size:1.35rem;
+                            color:#f5f0e8;font-weight:400;margin-bottom:0.3rem;">
+                    I am a Student
+                </div>
+                <div style="font-size:0.82rem;color:rgba(245,240,232,0.55);
+                            font-family:'DM Sans',sans-serif;margin-bottom:1rem;">
+                    View subjects &amp; track attendance
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
+        if st.button("Continue as Student", type="primary", key="home_student_login",
+                     use_container_width=True):
             st.session_state['login_type'] = 'student'
             st.rerun()
-        
-            
+
+    st.markdown("""
+        <div style="text-align:center;margin-top:2.5rem;font-size:0.75rem;
+                    color:rgba(245,240,232,0.3);letter-spacing:0.1em;text-transform:uppercase;">
+            Powered by Facial &amp; Voice Recognition AI
+        </div>
+    """, unsafe_allow_html=True)

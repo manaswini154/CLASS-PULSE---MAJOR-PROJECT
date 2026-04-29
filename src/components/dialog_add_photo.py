@@ -12,12 +12,12 @@ def add_photos_dialog():
     t1, t2 = st.columns(2)
     with t1:
         type_camera = 'primary' if st.session_state.photo_tab == 'camera' else 'tertiary'
-        if st.button('Camera', type = type_camera,width = 'stretch',  icon = ':material/photo_camera:'):
+        if st.button('Camera', type = type_camera,width = 'stretch',  icon = '📷'):
             st.session_state.photo_tab = 'camera'         
 
     with t2:
         type_upload = 'primary' if st.session_state.photo_tab == 'upload' else 'tertiary'
-        if st.button('Upload Photos', type = type_upload,  icon = ':material/file_upload:'):
+        if st.button('Upload Photos', type = type_upload,  icon = '📂'):
             st.session_state.photo_tab = 'upload'
 
     if st.session_state.photo_tab == 'camera':
